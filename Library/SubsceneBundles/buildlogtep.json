@@ -1,0 +1,5 @@
+[
+{"name": "SwitchToBuildPlatform", "ph": "X", "dur": 489.099999999997, "tid": 1, "ts": 17744, "pid": 1}
+,{"name": "RebuildSpriteAtlasCache", "ph": "X", "dur": 993.8, "tid": 1, "ts": 18331, "pid": 1}
+,{"name": "BuildPlayerScripts", "ph": "X", "dur": 40800390.6, "tid": 1, "ts": 19482, "pid": 1}
+]

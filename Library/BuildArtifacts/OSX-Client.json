@@ -1,0 +1,15 @@
+{
+    "Result": {
+        "Succeeded": true,
+        "Message": null,
+        "BuildPipeline": "Unity.Build.macOS.Classic.MacOSClassicNonIncrementalPipeline, Unity.Build.macOS.Classic",
+        "BuildConfiguration": "GlobalObjectId_V1-1-bede0d8c9f03a46a8a0f4541d3b91283-93214019566545601-0",
+        "Duration": "00:02:51.3545119"
+    },
+    "Artifacts": [
+        {
+            "$type": "Unity.Build.macOS.Classic.MacOSArtifact, Unity.Build.macOS.Classic",
+            "OutputTargetFile": "Build/Netcube.app"
+        }
+    ]
+}

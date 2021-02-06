@@ -1,0 +1,15 @@
+{
+    "Result": {
+        "Succeeded": true,
+        "Message": null,
+        "BuildPipeline": "Unity.Build.macOS.Classic.MacOSClassicNonIncrementalPipeline, Unity.Build.macOS.Classic",
+        "BuildConfiguration": "GlobalObjectId_V1-1-f2f1761d1737f43e1ab2b45df75f529f-93214019566545601-0",
+        "Duration": "00:02:00.1945820"
+    },
+    "Artifacts": [
+        {
+            "$type": "Unity.Build.macOS.Classic.MacOSArtifact, Unity.Build.macOS.Classic",
+            "OutputTargetFile": "Build/Product Name.app"
+        }
+    ]
+}

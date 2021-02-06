@@ -1,0 +1,20 @@
+{
+    "name": "Unity.Build.macOS.Classic",
+    "references": [
+        "Unity.Build",
+        "Unity.Build.Classic",
+        "Unity.Build.Classic.Private",
+        "Unity.Build.Editor"
+    ],
+    "optionalUnityReferences": [],
+    "overrideReferences": true,
+    "includePlatforms": [
+        "Editor"
+    ],
+    "precompiledReferences": [
+        "bee.dll",
+        "Bee.Toolchain.MacOS.dll"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}
