@@ -47,8 +47,6 @@ public class ClientMouseInputSystem : ComponentSystem
             Filter = CollisionFilter.Default
         };
 
-        //NativeList<RaycastHit> raycast_hit = new NativeList<RaycastHit>();
-        //RaycastHit raycast_hit = new RaycastHit();
         if (!physicsWorld.PhysicsWorld.CollisionWorld.CastRay(raycast_input, out var hit))
         {
             Debug.Log("Not mouse click");
@@ -64,24 +62,5 @@ public class ClientMouseInputSystem : ComponentSystem
         DynamicBuffer<MouseInputComponent> inputBuffer =
             EntityManager.GetBuffer<MouseInputComponent>(localInput);
         inputBuffer.AddCommandData(input);
-
-        /*
-        var results = new NativeArray<RaycastHit>(1, Allocator.TempJob);
-        var commands = new NativeArray<RaycastCommand>(1, Allocator.TempJob);
-
-        commands[0] = new RaycastCommand(screenPointToRay.origin, screenPointToRay.direction);
-        JobHandle handle = RaycastCommand.ScheduleBatch(commands, results, 1, default(JobHandle));
-        handle.Complete();        
-
-        var input = default(MouseInputComponent);
-        input.position = results[0].point; ;
-        input.Tick = World.GetExistingSystem<ClientSimulationSystemGroup>().ServerTick;
-
-        var inputBuffer = EntityManager.GetBuffer<MouseInputComponent>(localInput);
-        inputBuffer.AddCommandData(input);
-
-        results.Dispose();
-        commands.Dispose();
-        */
     }
 }
