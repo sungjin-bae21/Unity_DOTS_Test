@@ -21,7 +21,6 @@ public class SampleCubeInput : ComponentSystem
                 if (ghostOwner.NetworkId == localPlayerId)
                 {
                     PostUpdateCommands.AddBuffer<CubeInput>(ent);
-                    PostUpdateCommands.AddBuffer<MouseInputComponent>(ent);
                     PostUpdateCommands.SetComponent(GetSingletonEntity<CommandTargetComponent>(), new CommandTargetComponent { targetEntity = ent });
                 }
             });

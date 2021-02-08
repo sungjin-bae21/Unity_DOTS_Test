@@ -14,7 +14,7 @@ public class MoveCubeSystem : ComponentSystem
         var deltaTime = Time.DeltaTime;
         Entities.ForEach((DynamicBuffer<CubeInput> inputBuffer, ref Translation trans, ref PredictedGhostComponent prediction) =>
         {
-            Debug.Log(String.Format("Cube Input buffer length {0}", inputBuffer.Length));
+            //Debug.Log(String.Format("Cube Input buffer length {0}", inputBuffer.Length));
 
             if (!GhostPredictionSystemGroup.ShouldPredict(tick, prediction))
                 return;

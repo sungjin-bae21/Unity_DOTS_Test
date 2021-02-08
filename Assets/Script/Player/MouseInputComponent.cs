@@ -2,11 +2,9 @@ using Unity.NetCode;
 using Unity.Mathematics;
 
 
-public struct MouseInputComponent : ICommandData
+public struct MouseInputCommand : IRpcCommand
 {
-    public uint Tick { get; set; }
     public float3 position;
-    public bool isNew;
 }
 
 

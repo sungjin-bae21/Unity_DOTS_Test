@@ -6,11 +6,11 @@ using NavJob.Systems;
 using UnityEngine;
 using System;
 using Unity.Mathematics;
+using Unity.Collections;
 
 [UpdateInGroup(typeof(GhostPredictionSystemGroup))]
 public class ServerMouseInputSystem : ComponentSystem
 {
-
     protected override void OnUpdate()
     {
         var group = World.GetExistingSystem<GhostPredictionSystemGroup>();
@@ -18,22 +18,32 @@ public class ServerMouseInputSystem : ComponentSystem
         var deltaTime = Time.DeltaTime;
 
         Entities.ForEach(
-            (Entity ent, DynamicBuffer<MouseInputComponent> inputBuffer, ref NavAgent agent) =>
+            (Entity ent, ref MouseInputCommand cmd, ref ReceiveRpcCommandRequestComponent req) =>
             {
-                Debug.Log(String.Format("MouseInput buffer length {0}", inputBuffer.Length));
-                MouseInputComponent input;
-                inputBuffer.GetDataAtTick(tick, out input);
-                if (!input.isNew)
-                {
-                    return;
-                }
-
-                
-
-                float3 pos = input.position;
-                //Debug.Log(String.Format("Ghost prediction recv input data x : {0} y: {1} z: {2} ", pos.x, pos.y, pos.z));
-                Debug.Log(ent.Index.ToString());
-                NavAgentSystem.SetDestinationStatic(ent, agent, input.position);
+                float3 pos = cmd.position;
+                //Debug.Log(String.Format("Server Mouse Input data com x : {0} , y: {1} z: {2}", pos.x, pos.y, pos.z));
+                int client_id = EntityManager.GetComponentData<NetworkIdComponent>(req.SourceConnection).Value;
+                // Debug.Log(String.Format("client id : {0}", client_id));
+                MovePlayerAgent(client_id, cmd.position);
+                PostUpdateCommands.DestroyEntity(ent);
             });
+    }
+
+
+    void MovePlayerAgent(int client_id, float3 pos)
+    {
+        Entities.ForEach(
+            (ref CommandTargetComponent command_target, ref NetworkIdComponent network_id) =>
+            {
+              if (network_id.Value != client_id)
+              {
+                return;
+              }
+
+              Entity ent = command_target.targetEntity;
+              NavAgent agent =  EntityManager.GetComponentData<NavAgent>(ent);
+              NavAgentSystem.SetDestinationStatic(ent, agent, pos);
+            });
+        
     }
 }

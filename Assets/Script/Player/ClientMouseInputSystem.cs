@@ -4,9 +4,6 @@ using RaycastHit = UnityEngine.RaycastHit;
 using UnityEngine;
 using Unity.Entities;
 using Unity.NetCode;
-using Unity.Mathematics;
-using Unity.Collections;
-using Unity.Jobs;
 using System;
 
 [UpdateInGroup(typeof(ClientSimulationSystemGroup))]
@@ -14,7 +11,7 @@ using System;
 public class ClientMouseInputSystem : ComponentSystem
 {
     private const float RAYCAST_DISTANCE = 1000;
-    private BuildPhysicsWorld physicsWorld; 
+    private BuildPhysicsWorld physicsWorld;
 
     protected override void OnCreate()
     {
@@ -54,13 +51,11 @@ public class ClientMouseInputSystem : ComponentSystem
         }
 
         //Debug.Log(String.Format("client hit position x : {0} y: {1} z : {2}", hit.Position.x, hit.Position.y, hit.Position.z));
-        MouseInputComponent input = new MouseInputComponent();
-        input.isNew = true;
+        MouseInputCommand input = new MouseInputCommand();
         input.position = hit.Position;
-        input.Tick = World.GetExistingSystem<ClientSimulationSystemGroup>().ServerTick;
 
-        DynamicBuffer<MouseInputComponent> inputBuffer =
-            EntityManager.GetBuffer<MouseInputComponent>(localInput);
-        inputBuffer.AddCommandData(input);
+        var req = PostUpdateCommands.CreateEntity();
+        PostUpdateCommands.AddComponent(req, input);
+        PostUpdateCommands.AddComponent(req, new SendRpcCommandRequestComponent());
     }
 }

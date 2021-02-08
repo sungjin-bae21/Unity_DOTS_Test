@@ -25,8 +25,6 @@ public class GoInGameServerSystem : ComponentSystem
             var player = EntityManager.Instantiate(prefab);
             EntityManager.SetComponentData(player, new GhostOwnerComponent { NetworkId = EntityManager.GetComponentData<NetworkIdComponent>(reqSrc.SourceConnection).Value });
             PostUpdateCommands.AddBuffer<CubeInput>(player);
-            PostUpdateCommands.AddBuffer<MouseInputComponent>(player);
-
             PostUpdateCommands.SetComponent(reqSrc.SourceConnection, new CommandTargetComponent { targetEntity = player });
 
             PostUpdateCommands.DestroyEntity(reqEnt);
