@@ -265,5 +265,7 @@ MonoBehaviour:
   Ghosts:
   - prefab: {fileID: 8987125135581674507, guid: 77a3f86e46d3a4bbdbf8dc398fcc36eb, type: 3}
     enabled: 1
+  - prefab: {fileID: 3949417936947848180, guid: dbd34025653c7463a9ac11908cc1fc21, type: 3}
+    enabled: 1
   - prefab: {fileID: 2862432659684920195, guid: ca4271e2400d84607993744b192bfbe5, type: 3}
     enabled: 1
