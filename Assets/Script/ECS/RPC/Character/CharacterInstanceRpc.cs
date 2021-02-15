@@ -9,7 +9,7 @@ public enum CharacterClass
 }
 
 
-public struct CharacterInstanceInfo : IRpcCommand
+public struct CharacterInstanceRpc : IRpcCommand
 {
     public CharacterClass character_class;
     public FixedString64 skill1;
@@ -17,11 +17,11 @@ public struct CharacterInstanceInfo : IRpcCommand
     public FixedString64 skill3;
     public FixedString64 skill4;
 
-    public CharacterInstanceInfo(CharacterClass class_,
-                                 FixedString64 skill1_,
-                                 FixedString64 skill2_,
-                                 FixedString64 skill3_,
-                                 FixedString64 skill4_)
+    public CharacterInstanceRpc(CharacterClass class_,
+                                FixedString64 skill1_,
+                                FixedString64 skill2_,
+                                FixedString64 skill3_,
+                                FixedString64 skill4_)
     {
         character_class = class_;
         skill1 = skill1_;
