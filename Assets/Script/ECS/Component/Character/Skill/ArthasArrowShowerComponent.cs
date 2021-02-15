@@ -1,9 +1,7 @@
 using Unity.Entities;
-using UnityEngine;
-
 
 [GenerateAuthoringComponent]
-public struct ArthasArrowShowerComp : IComponentData
+public struct ArthasArrowShowerComponent : IComponentData
 {
     public float radius;
     public int max_tick;
@@ -14,8 +12,8 @@ public struct ArthasArrowShowerComp : IComponentData
     public int tick;
     public bool excute;
 
-    public ArthasArrowShowerComp(float radius_, int max_tick_, float interval_time_,
-                                 float time_ = 0, int tick_ = 0, bool excute_ = false)
+    public ArthasArrowShowerComponent(float radius_, int max_tick_, float interval_time_,
+                                      float time_ = 0, int tick_ = 0, bool excute_ = false)
     {
         radius = radius_;
         max_tick = max_tick_;

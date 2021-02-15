@@ -6,7 +6,6 @@ namespace NavJob.Components
 {
     [GenerateAuthoringComponent]
     public struct SyncPositionFromNavAgent : IComponentData {
-        public bool aa;
     }
 
 }
