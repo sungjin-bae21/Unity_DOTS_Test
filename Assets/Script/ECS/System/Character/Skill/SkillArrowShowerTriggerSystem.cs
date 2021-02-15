@@ -7,7 +7,7 @@ using System;
 
 
 [UpdateAfter(typeof(EndFramePhysicsSystem))]
-public class SkillArrowShowerSystem : SystemBase
+public class SkillArrowShowerTriggerSystem : SystemBase
 {
     BuildPhysicsWorld m_BuildPhysicsWorldSystem;
     StepPhysicsWorld step_physics_world;

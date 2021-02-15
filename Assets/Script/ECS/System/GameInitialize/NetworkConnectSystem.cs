@@ -4,9 +4,10 @@ using Unity.NetCode;
 using Unity.Networking.Transport;
 using Unity.Burst;
 
+
 // Control system updating in the default world
 [UpdateInWorld(UpdateInWorld.TargetWorld.Default)]
-public class Game : ComponentSystem
+public class NetworkConnectSystem : ComponentSystem
 {
     // Singleton component to trigger connections once from a control system
     struct InitGameComponent : IComponentData

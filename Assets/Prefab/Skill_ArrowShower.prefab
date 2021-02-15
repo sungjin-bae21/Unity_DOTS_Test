@@ -15,9 +15,8 @@ GameObject:
   - component: {fileID: 174221887966126945}
   - component: {fileID: 3949417936947848180}
   - component: {fileID: 2166238363161226249}
-  - component: {fileID: -9132327215249815724}
-  - component: {fileID: -8771657268527141305}
-  - component: {fileID: 720184031346608395}
+  - component: {fileID: 2725747973028354910}
+  - component: {fileID: -8657789771585274596}
   m_Layer: 0
   m_Name: Skill_ArrowShower
   m_TagString: Untagged
@@ -283,7 +282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1fea7091bb9848b191c018d3718ec0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-9132327215249815724
+--- !u!114 &2725747973028354910
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -292,11 +291,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4342079323404177545}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2146098ee1b7e4c049a87ed331a9cdd1, type: 3}
+  m_Script: {fileID: 11500000, guid: 5663e861e970f4ea6aadf693535c88ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   skill_name: Arthas_ArrowShower
---- !u!114 &-8771657268527141305
+--- !u!114 &-8657789771585274596
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -305,23 +304,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4342079323404177545}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9eef0e73919a4401bb750d4cad74f315, type: 3}
+  m_Script: {fileID: 11500000, guid: 866483cca7e7e431cb49212994c0fc00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  is_player: 1
---- !u!114 &720184031346608395
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4342079323404177545}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f150572f7a6a4b5d9691cde00907132, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 3
+  radius: 1
   max_tick: 5
   interval_time: 1
   time: 0

@@ -6,7 +6,7 @@ using System;
 
 
 [UpdateInGroup(typeof(ServerSimulationSystemGroup))]
-public class ServerExcuteSkillRpcResponseSystem : ComponentSystem
+public class ServerProcessExcuteSkillRpcSystem : ComponentSystem
 {
     protected override void OnUpdate()
     {

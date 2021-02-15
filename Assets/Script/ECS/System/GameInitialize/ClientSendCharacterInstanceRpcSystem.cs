@@ -1,10 +1,12 @@
 using UnityEngine;
 using Unity.Entities;
 using Unity.NetCode;
+using Unity.Collections;
 
 [UpdateInGroup(typeof(ClientSimulationSystemGroup))]
-public class ClientRequestCharacterInstanceRpcSystem : ComponentSystem
+public class ClientSendCharacterInstanceRpcSystem : ComponentSystem
 {
+
     protected override void OnCreate()
     {
         RequireSingletonForUpdate<NetworkIdComponent>();

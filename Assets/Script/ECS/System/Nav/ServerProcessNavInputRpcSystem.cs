@@ -8,8 +8,8 @@ using System;
 using Unity.Mathematics;
 using Unity.Collections;
 
-[UpdateInGroup(typeof(GhostPredictionSystemGroup))]
-public class ServerMouseInputSystem : ComponentSystem
+[UpdateInGroup(typeof(ServerSimulationSystemGroup))]
+public class ServerProcessNavInputRpcSystem : ComponentSystem
 {
     protected override void OnUpdate()
     {
@@ -35,14 +35,20 @@ public class ServerMouseInputSystem : ComponentSystem
         Entities.ForEach(
             (ref CommandTargetComponent command_target, ref NetworkIdComponent network_id) =>
             {
-              if (network_id.Value != client_id)
-              {
-                return;
-              }
+                if (network_id.Value != client_id)
+                {
+                    return;
+                }
 
-              Entity ent = command_target.targetEntity;
-              NavAgent agent =  EntityManager.GetComponentData<NavAgent>(ent);
-              NavAgentSystem.SetDestinationStatic(ent, agent, pos);
+                Entity ent = command_target.targetEntity;
+                if (ent == Entity.Null)
+                {
+                    Debug.LogError("Not Init target entity");
+                    return;
+                }
+
+                NavAgent agent =  EntityManager.GetComponentData<NavAgent>(ent);
+                NavAgentSystem.SetDestinationStatic(ent, agent, pos);
             });
         
     }

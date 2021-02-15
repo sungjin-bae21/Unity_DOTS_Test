@@ -3,7 +3,7 @@ using Unity.NetCode;
 using Unity.Entities;
 
 [UpdateInGroup(typeof(ServerSimulationSystemGroup))]
-public class ServerCharacterInstanceRpcSystem : ComponentSystem
+public class ServerProcessCharacterInstanceRpcSystem : ComponentSystem
 {
 
     protected override void OnCreate()
@@ -28,6 +28,8 @@ public class ServerCharacterInstanceRpcSystem : ComponentSystem
                 int network_id = EntityManager.GetComponentData<NetworkIdComponent>(req_.SourceConnection).Value;
                 EntityManager.SetComponentData(character,
                     new GhostOwnerComponent { NetworkId = network_id });
+
+                BindCharacterToCommandTargetComponent(network_id, character);
 
                 Entity skill_collections = GetOrCreateSkillCollectionBuffer(network_id);
 
@@ -66,5 +68,21 @@ public class ServerCharacterInstanceRpcSystem : ComponentSystem
         EntityManager.AddBuffer<InGameSkillPrefabBuffer>(ent);
         return ent;
     }
+
+
+    public void BindCharacterToCommandTargetComponent(int client_id_, Entity instance_character_)
+    {
+        Entities.ForEach(
+            (ref CommandTargetComponent command_target, ref NetworkIdComponent network_id) =>
+            {
+                if (network_id.Value != client_id_)
+                {
+                    return;
+                }
+
+                command_target.targetEntity = instance_character_;
+            });
+    }
+       
 
 }

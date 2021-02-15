@@ -1,7 +1,7 @@
 using Unity.Entities;
 using Unity.Collections;
 
-public struct SkillComp : IComponentData
+public struct SkillComponent : IComponentData
 {
     public FixedString64 name;
 }

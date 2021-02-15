@@ -6,7 +6,7 @@ using Unity.Collections;
 
 // When server receives go in game request, go in game and delete request
 [UpdateInGroup(typeof(ServerSimulationSystemGroup))]
-public class GoInGameServerSystem : ComponentSystem
+public class ServerGoInGameSystem : ComponentSystem
 {
 
     protected override void OnUpdate()

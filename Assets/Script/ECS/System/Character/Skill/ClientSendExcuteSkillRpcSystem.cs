@@ -3,7 +3,7 @@ using Unity.Entities;
 using Unity.NetCode;
 
 [UpdateInGroup(typeof(ClientSimulationSystemGroup))]
-public class ClientRequestExcuteSkillRpcSystem : ComponentSystem
+public class ClientSendExcuteSkillRpcSystem : ComponentSystem
 {
     protected override void OnUpdate()
     {

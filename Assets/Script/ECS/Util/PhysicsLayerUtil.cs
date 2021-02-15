@@ -2,7 +2,7 @@ using UnityEngine;
 using Unity.Physics;
 using UnityEngine.Rendering;
 
-public static class LayerUtil
+public static class PhysicsLayerUtil
 {
 
     public static CollisionFilter LayerMaskToFilter(LayerMask belong_to, LayerMask collision_with)

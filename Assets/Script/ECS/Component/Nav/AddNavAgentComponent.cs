@@ -2,7 +2,7 @@ using UnityEngine;
 using Unity.Entities;
 
 using NavJob.Components;
-public class AddNavAgemt : MonoBehaviour, IConvertGameObjectToEntity
+public class AddNavAgentComponent : MonoBehaviour, IConvertGameObjectToEntity
 {
     public float radius = 1;
     public float move_speed = 1;

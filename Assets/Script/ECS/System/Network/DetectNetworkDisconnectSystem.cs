@@ -3,7 +3,7 @@ using Unity.Entities;
 using Unity.NetCode;
 using System;
 
-public class NetworkDisconnectSystem : ComponentSystem
+public class DetectNetworkDisconnectSystem : ComponentSystem
 {
     protected override void OnUpdate()
     {

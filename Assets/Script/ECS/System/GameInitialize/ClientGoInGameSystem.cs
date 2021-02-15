@@ -3,7 +3,7 @@ using Unity.NetCode;
 
 // When client has a connection with network id, go in game and tell server to also go in game
 [UpdateInGroup(typeof(ClientSimulationSystemGroup))]
-public class GoInGameClientSystem : ComponentSystem
+public class ClientGoInGameSystem : ComponentSystem
 {
     protected override void OnCreate()
     {

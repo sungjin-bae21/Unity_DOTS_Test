@@ -4,10 +4,10 @@ using RaycastHit = UnityEngine.RaycastHit;
 using UnityEngine;
 using Unity.Entities;
 using Unity.NetCode;
-using System;
+using Unity.Collections;
 
 [UpdateInGroup(typeof(ClientSimulationSystemGroup))]
-public class ClientMouseInputSystem : ComponentSystem
+public class ClientSendMouseNavRpcSystem : ComponentSystem
 {
     private const float RAYCAST_DISTANCE = 1000;
     private BuildPhysicsWorld physicsWorld;
@@ -23,12 +23,6 @@ public class ClientMouseInputSystem : ComponentSystem
     protected override void OnUpdate()
     {
         if (!Input.GetMouseButtonDown(0)) return;
-
-        Entity localInput = GetSingleton<CommandTargetComponent>().targetEntity;
-        if (localInput == Entity.Null)
-        {
-            return;
-        }
 
         var screenPointToRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 

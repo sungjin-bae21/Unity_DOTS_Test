@@ -2,7 +2,7 @@ using Unity.Entities;
 using Unity.Scenes;
 using UnityEngine;
 
-public class MySubSceneLoader : ComponentSystem
+public class SubSceneLoadSystem : ComponentSystem
 {
     private SceneSystem scene_system;
     static bool load = false;
