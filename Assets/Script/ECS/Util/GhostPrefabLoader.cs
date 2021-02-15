@@ -13,12 +13,12 @@ public static class GhostPrefabLoader
 
         foreach (GhostPrefabBuffer prefab in prefabs)
         {
-            if (!manager_.HasComponent<CharacterComp>(prefab.Value))
+            if (!manager_.HasComponent<CharacterComponent>(prefab.Value))
             {
                 continue;
             }
 
-            CharacterComp comp = manager_.GetComponentData<CharacterComp>(prefab.Value);
+            CharacterComponent comp = manager_.GetComponentData<CharacterComponent>(prefab.Value);
             if (comp.character_class != character_class_)
             {
                 continue;
@@ -46,12 +46,12 @@ public static class GhostPrefabLoader
 
         foreach (GhostPrefabBuffer prefab in prefabs)
         {
-            if (!manager_.HasComponent<SkillComp>(prefab.Value))
+            if (!manager_.HasComponent<SkillComponent>(prefab.Value))
             {
                 continue;
             }
 
-            SkillComp comp = manager_.GetComponentData<SkillComp>(prefab.Value);
+            SkillComponent comp = manager_.GetComponentData<SkillComponent>(prefab.Value);
             if (comp.name != skill_)
             {
                 continue;
