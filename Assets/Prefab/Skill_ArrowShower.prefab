@@ -11,13 +11,13 @@ GameObject:
   - component: {fileID: 1361013928673538661}
   - component: {fileID: 2724627652683634946}
   - component: {fileID: 2294106790292616893}
-  - component: {fileID: 4842560729226774590}
-  - component: {fileID: -5815467339211000524}
   - component: {fileID: -903583766848964037}
   - component: {fileID: 174221887966126945}
   - component: {fileID: 3949417936947848180}
   - component: {fileID: 2166238363161226249}
   - component: {fileID: -9132327215249815724}
+  - component: {fileID: -8771657268527141305}
+  - component: {fileID: 720184031346608395}
   m_Layer: 0
   m_Name: Skill_ArrowShower
   m_TagString: Untagged
@@ -88,69 +88,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &4842560729226774590
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4342079323404177545}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-5815467339211000524
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4342079323404177545}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccea9ea98e38942e0b0938c27ed1903e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_MotionType: 0
-  m_Smoothing: 0
-  m_Mass: 1
-  m_LinearDamping: 0.01
-  m_AngularDamping: 0.05
-  m_InitialLinearVelocity:
-    x: 0
-    y: 0
-    z: 0
-  m_InitialAngularVelocity:
-    x: 0
-    y: 0
-    z: 0
-  m_GravityFactor: 1
-  m_OverrideDefaultMassDistribution: 0
-  m_CenterOfMass:
-    x: 0
-    y: 0
-    z: 0
-  m_Orientation:
-    Value:
-      x: 0
-      y: 0
-      z: 0
-    RotationOrder: 4
-  m_InertiaTensor:
-    x: 0.4
-    y: 0.4
-    z: 0.4
-  m_CustomTags:
-    Tag00: 0
-    Tag01: 0
-    Tag02: 0
-    Tag03: 0
-    Tag04: 0
-    Tag05: 0
-    Tag06: 0
-    Tag07: 0
 --- !u!114 &-903583766848964037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b275e5f92732148048d7b77e264ac30e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShapeType: 0
+  m_ShapeType: 2
   m_PrimitiveCenter:
     x: 0
     y: 0
@@ -359,3 +296,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skill_name: Arthas_ArrowShower
+--- !u!114 &-8771657268527141305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4342079323404177545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eef0e73919a4401bb750d4cad74f315, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  is_player: 1
+--- !u!114 &720184031346608395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4342079323404177545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f150572f7a6a4b5d9691cde00907132, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 3
+  max_tick: 5
+  interval_time: 1
+  time: 0
+  tick: 0
+  excute: 0

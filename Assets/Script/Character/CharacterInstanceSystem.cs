@@ -22,6 +22,9 @@ public class CharacterInstanceSystem : ComponentSystem
                     GhostPrefabLoader.GetCharacterInstance(EntityManager,
                                                            GetSingletonEntity<GhostPrefabCollectionComponent>(),
                                                            instance_info_.character_class);
+#if UNITY_EDITOR
+                EntityManager.SetName(character, "PlayerCharacter");
+#endif
                 int network_id = EntityManager.GetComponentData<NetworkIdComponent>(reqSrc.SourceConnection).Value;
                 EntityManager.SetComponentData(character,
                     new GhostOwnerComponent { NetworkId = network_id });
@@ -38,7 +41,7 @@ public class CharacterInstanceSystem : ComponentSystem
                                                      GetSingletonEntity<GhostPrefabCollectionComponent>(),
                                                      instance_info_.skill1);
 
-                buffer.Add(new InGameSkillPrefabBuffer { Value = skill_prefab });
+                buffer.Add(new InGameSkillPrefabBuffer { Value = skill_prefab, skill_name = instance_info_.skill1 });
                 PostUpdateCommands.DestroyEntity(ent_);
             });
     }

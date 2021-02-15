@@ -6,15 +6,22 @@ using UnityEngine;
 public struct ArthasArrowShowerComp : IComponentData
 {
     public float radius;
-    public float tick;
-    public float interval;
-    public float duration;
+    public int max_tick;
+    public float interval_time;
 
-    public ArthasArrowShowerComp(float radius_, float tick_, float interval_, float duration_)
+    // 스킬 지속에 관한 정보.
+    public float time;
+    public int tick;
+    public bool excute;
+
+    public ArthasArrowShowerComp(float radius_, int max_tick_, float interval_time_,
+                                 float time_ = 0, int tick_ = 0, bool excute_ = false)
     {
         radius = radius_;
+        max_tick = max_tick_;
+        interval_time = interval_time_;
+        time = time_;
         tick = tick_;
-        interval = interval_;
-        duration = duration_;
+        excute = excute_;
     }
 }
