@@ -17,11 +17,11 @@ public class CharacterInstanceSystem : ComponentSystem
         Entities.ForEach(
             (Entity ent_, ref CharacterInstanceInfo instance_info_, ref ReceiveRpcCommandRequestComponent reqSrc) =>
             {
-                // 캐릭터 생성.
-                var character =
-                    GhostPrefabLoader.GetCharacterInstance(EntityManager,
-                                                           GetSingletonEntity<GhostPrefabCollectionComponent>(),
-                                                           instance_info_.character_class);
+                Entity character_prefab =
+                    GhostPrefabLoader.GetCharacterPrefab(EntityManager,
+                                                         GetSingletonEntity<GhostPrefabCollectionComponent>(),
+                                                         instance_info_.character_class);
+                Entity character = EntityManager.Instantiate(character_prefab);
 #if UNITY_EDITOR
                 EntityManager.SetName(character, "PlayerCharacter");
 #endif

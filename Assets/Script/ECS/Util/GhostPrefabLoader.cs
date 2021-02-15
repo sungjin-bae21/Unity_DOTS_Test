@@ -5,8 +5,8 @@ using Unity.Collections;
 
 public static class GhostPrefabLoader
 {
-    public static Entity GetCharacterInstance(EntityManager manager_, Entity collection_,
-                                              CharacterClass character_class_)
+    public static Entity GetCharacterPrefab(EntityManager manager_, Entity collection_,
+                                            CharacterClass character_class_)
     {
         DynamicBuffer<GhostPrefabBuffer> prefabs =
             manager_.GetBuffer<GhostPrefabBuffer>(collection_);
@@ -24,7 +24,7 @@ public static class GhostPrefabLoader
                 continue;
             }
 
-            return manager_.Instantiate(prefab.Value);   
+            return prefab.Value;
         }
 
         Debug.LogError("Not exist character gost prefab");
