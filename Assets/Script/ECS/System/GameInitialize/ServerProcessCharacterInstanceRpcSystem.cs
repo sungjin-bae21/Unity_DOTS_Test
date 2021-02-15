@@ -3,7 +3,7 @@ using Unity.NetCode;
 using Unity.Entities;
 
 [UpdateInGroup(typeof(ServerSimulationSystemGroup))]
-public class CharacterInstanceSystem : ComponentSystem
+public class ServerCharacterInstanceRpcSystem : ComponentSystem
 {
 
     protected override void OnCreate()
@@ -15,7 +15,7 @@ public class CharacterInstanceSystem : ComponentSystem
     protected override void OnUpdate()
     {
         Entities.ForEach(
-            (Entity ent_, ref CharacterInstanceInfo instance_info_, ref ReceiveRpcCommandRequestComponent reqSrc) =>
+            (Entity ent_, ref CharacterInstanceRpc instance_info_, ref ReceiveRpcCommandRequestComponent req_) =>
             {
                 Entity character_prefab =
                     GhostPrefabLoader.GetCharacterPrefab(EntityManager,
@@ -25,13 +25,9 @@ public class CharacterInstanceSystem : ComponentSystem
 #if UNITY_EDITOR
                 EntityManager.SetName(character, "PlayerCharacter");
 #endif
-                int network_id = EntityManager.GetComponentData<NetworkIdComponent>(reqSrc.SourceConnection).Value;
+                int network_id = EntityManager.GetComponentData<NetworkIdComponent>(req_.SourceConnection).Value;
                 EntityManager.SetComponentData(character,
                     new GhostOwnerComponent { NetworkId = network_id });
-
-                PostUpdateCommands.AddBuffer<CubeInput>(character);
-                PostUpdateCommands.SetComponent(reqSrc.SourceConnection, new CommandTargetComponent { targetEntity = character });
-
 
                 Entity skill_collections = GetOrCreateSkillCollectionBuffer(network_id);
 
@@ -46,11 +42,12 @@ public class CharacterInstanceSystem : ComponentSystem
             });
     }
 
+
     public Entity GetOrCreateSkillCollectionBuffer(int network_id_)
     {
         Entity ent = Entity.Null;
         Entities.ForEach(
-            (Entity ent_, ref NetworkIDWithSkillPrefabs info_) => {
+            (Entity ent_, ref SkillToNetworkIDComponent info_) => {
                 if (info_.network_id == network_id_)
                 {
                     ent = ent_;
@@ -64,8 +61,8 @@ public class CharacterInstanceSystem : ComponentSystem
         }
 
         ent = EntityManager.CreateEntity();
-        EntityManager.AddComponent<NetworkIDWithSkillPrefabs>(ent);
-        EntityManager.SetComponentData<NetworkIDWithSkillPrefabs>(ent, new NetworkIDWithSkillPrefabs { network_id = network_id_ });
+        EntityManager.AddComponent<SkillToNetworkIDComponent>(ent);
+        EntityManager.SetComponentData<SkillToNetworkIDComponent>(ent, new SkillToNetworkIDComponent { network_id = network_id_ });
         EntityManager.AddBuffer<InGameSkillPrefabBuffer>(ent);
         return ent;
     }

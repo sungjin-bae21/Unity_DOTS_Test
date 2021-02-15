@@ -18,7 +18,7 @@ public class ServerMouseInputSystem : ComponentSystem
         var deltaTime = Time.DeltaTime;
 
         Entities.ForEach(
-            (Entity ent, ref MouseInputCommand cmd, ref ReceiveRpcCommandRequestComponent req) =>
+            (Entity ent, ref NavInputRpc cmd, ref ReceiveRpcCommandRequestComponent req) =>
             {
                 float3 pos = cmd.position;
                 //Debug.Log(String.Format("Server Mouse Input data com x : {0} , y: {1} z: {2}", pos.x, pos.y, pos.z));

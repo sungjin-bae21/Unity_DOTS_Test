@@ -5,12 +5,12 @@ using Unity.NetCode;
 
 // 스킬 유지, 삭제에 관련된 시스템.
 [UpdateInGroup(typeof(ServerSimulationSystemGroup))]
-public class ArrowShowerSystem : ComponentSystem
+public class ServerArrowShowerSkillSystem : ComponentSystem
 {
     protected override void OnUpdate()
     {
         Entities.ForEach(
-            (Entity ent_, ref ArthasArrowShowerComp skill_comp_) =>
+            (Entity ent_, ref ArthasArrowShowerComponent skill_comp_) =>
             {
                 float time = skill_comp_.time + Time.DeltaTime;
                 if (time < skill_comp_.interval_time)

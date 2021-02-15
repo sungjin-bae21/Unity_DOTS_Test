@@ -3,7 +3,7 @@ using Unity.Entities;
 using Unity.NetCode;
 
 [UpdateInGroup(typeof(ClientSimulationSystemGroup))]
-public class SkillShootSystem : ComponentSystem
+public class ClientRequestExcuteSkillRpcSystem : ComponentSystem
 {
     protected override void OnUpdate()
     {
@@ -13,13 +13,13 @@ public class SkillShootSystem : ComponentSystem
         }
 
         Entities.ForEach(
-            (Entity ent, ref NetworkIdComponent network_id) =>
+            (Entity ent_, ref NetworkIdComponent network_id_) =>
             {
                 var req = PostUpdateCommands.CreateEntity();
                 ExcuteSkillRpc info =
                     new ExcuteSkillRpc("Arthas_ArrowShower");
                 PostUpdateCommands.AddComponent(req, info);
-                PostUpdateCommands.AddComponent(req, new SendRpcCommandRequestComponent { TargetConnection = ent });
+                PostUpdateCommands.AddComponent(req, new SendRpcCommandRequestComponent { TargetConnection = ent_ });
             });
     }
 }

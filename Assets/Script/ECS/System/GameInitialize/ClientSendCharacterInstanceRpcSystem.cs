@@ -3,7 +3,7 @@ using Unity.Entities;
 using Unity.NetCode;
 
 [UpdateInGroup(typeof(ClientSimulationSystemGroup))]
-public class RequestInstanceCharacter : ComponentSystem
+public class ClientRequestCharacterInstanceRpcSystem : ComponentSystem
 {
     protected override void OnCreate()
     {
@@ -22,8 +22,8 @@ public class RequestInstanceCharacter : ComponentSystem
             (Entity ent, ref NetworkIdComponent network_id) =>
             {
                 var req = PostUpdateCommands.CreateEntity();
-                CharacterInstanceInfo info =
-                    new CharacterInstanceInfo(CharacterClass.Arthas,
+                CharacterInstanceRpc info =
+                    new CharacterInstanceRpc(CharacterClass.Arthas,
                                               "Arthas_ArrowShower",
                                               "none",
                                               "none",

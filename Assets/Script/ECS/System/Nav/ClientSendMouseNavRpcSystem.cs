@@ -7,7 +7,6 @@ using Unity.NetCode;
 using System;
 
 [UpdateInGroup(typeof(ClientSimulationSystemGroup))]
-[UpdateAfter(typeof(SampleCubeInput))]
 public class ClientMouseInputSystem : ComponentSystem
 {
     private const float RAYCAST_DISTANCE = 1000;
@@ -35,7 +34,7 @@ public class ClientMouseInputSystem : ComponentSystem
 
         LayerMask ground = LayerMask.GetMask("Default");
         LayerMask mouse_ray = LayerMask.GetMask("MouseRay");
-        CollisionFilter collision_filter = LayerUtil.LayerMaskToFilter(mouse_ray, ground);
+        CollisionFilter collision_filter = PhysicsLayerUtil.LayerMaskToFilter(mouse_ray, ground);
         var raycast_input = new RaycastInput
         {
             Start = screenPointToRay.origin,
@@ -50,7 +49,7 @@ public class ClientMouseInputSystem : ComponentSystem
         }
 
         //Debug.Log(String.Format("client hit position x : {0} y: {1} z : {2}", hit.Position.x, hit.Position.y, hit.Position.z));
-        MouseInputCommand input = new MouseInputCommand();
+        NavInputRpc input = new NavInputRpc();
         input.position = hit.Position;
 
         var req = PostUpdateCommands.CreateEntity();

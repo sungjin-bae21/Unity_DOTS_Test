@@ -6,14 +6,14 @@ using System;
 
 
 [UpdateInGroup(typeof(ServerSimulationSystemGroup))]
-public class ServerSkillExcute : ComponentSystem
+public class ServerExcuteSkillRpcResponseSystem : ComponentSystem
 {
     protected override void OnUpdate()
     {
         Entities.ForEach(
-            (Entity ent_, ref ExcuteSkillRpc instance_info_, ref ReceiveRpcCommandRequestComponent reqSrc) =>
+            (Entity ent_, ref ExcuteSkillRpc instance_info_, ref ReceiveRpcCommandRequestComponent req_) =>
             {
-                int network_id = EntityManager.GetComponentData<NetworkIdComponent>(reqSrc.SourceConnection).Value;
+                int network_id = EntityManager.GetComponentData<NetworkIdComponent>(req_.SourceConnection).Value;
 
                 Entity ent = CreateSkill(network_id, instance_info_.skill_name);
                 if (ent == Entity.Null)
@@ -32,7 +32,7 @@ public class ServerSkillExcute : ComponentSystem
     {
         Entity ent = Entity.Null;
         Entities.ForEach(
-           (Entity ent_, ref NetworkIDWithSkillPrefabs info_) => {
+           (Entity ent_, ref SkillToNetworkIDComponent info_) => {
                if (info_.network_id == network_id_)
                {
                    var buffer = EntityManager.GetBuffer<InGameSkillPrefabBuffer>(ent_);
