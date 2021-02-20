@@ -63,4 +63,25 @@ public static class GhostPrefabLoader
         Debug.LogError("Not exist skill gost prefab");
         return Entity.Null;
     }
+
+
+    public static Entity GetUIDataPrefab(EntityManager manager_, Entity collection_)
+    {
+        DynamicBuffer<GhostPrefabBuffer> prefabs =
+          manager_.GetBuffer<GhostPrefabBuffer>(collection_);
+
+        foreach (GhostPrefabBuffer prefab in prefabs)
+        {
+            if (!manager_.HasComponent<UIEntityToNetworkIDComponent>(prefab.Value))
+            {
+                continue;
+            }
+
+            return prefab.Value;
+        }
+
+        Debug.LogError("Not exist UIEntity gost prefab");
+        return Entity.Null;
+
+    }
 }

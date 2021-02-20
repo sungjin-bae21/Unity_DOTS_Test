@@ -5,7 +5,7 @@ public static class NetworkUtility
 {
     public static World GetServerWorld()
     {
-        return GetWorld<ClientSimulationSystemGroup>();
+        return GetWorld<ServerSimulationSystemGroup>();
     }
 
     public static World GetClientWorld()

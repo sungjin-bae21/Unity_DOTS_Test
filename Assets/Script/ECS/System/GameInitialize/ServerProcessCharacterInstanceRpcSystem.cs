@@ -40,6 +40,14 @@ public class ServerProcessCharacterInstanceRpcSystem : ComponentSystem
                                                      instance_info_.skill1);
 
                 buffer.Add(new InGameSkillPrefabBuffer { Value = skill_prefab, skill_name = instance_info_.skill1 });
+
+                Entity ui_data_prefab =
+                    GhostPrefabLoader.GetUIDataPrefab(EntityManager,
+                                                      GetSingletonEntity<GhostPrefabCollectionComponent>());
+
+                Entity ui_data = EntityManager.Instantiate(ui_data_prefab);
+                EntityManager.SetComponentData(ui_data, new PlayerHPUIComponent { hp = 100 });
+                EntityManager.SetComponentData(ui_data, new UIEntityToNetworkIDComponent { network_id = network_id });
                 PostUpdateCommands.DestroyEntity(ent_);
             });
     }
