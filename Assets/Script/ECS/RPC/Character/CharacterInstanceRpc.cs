@@ -5,6 +5,7 @@ using Unity.NetCode;
 
 public enum CharacterClass
 {
+    None,
     Arthas
 }
 

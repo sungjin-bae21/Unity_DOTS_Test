@@ -108,6 +108,11 @@ MonoBehaviour:
   Importance: 1
   prefabId: 77a3f86e46d3a4bbdbf8dc398fcc36eb
   Name: Cube
+  RefGameObjects: []
+  ComponentNames: []
+  PrefabTypeOverrides: []
+  SendTypeOverrides: []
+  VariantOverrides: []
 --- !u!114 &5423547028581363980
 MonoBehaviour:
   m_ObjectHideFlags: 0

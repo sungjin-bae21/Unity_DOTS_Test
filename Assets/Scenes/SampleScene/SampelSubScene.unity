@@ -271,3 +271,5 @@ MonoBehaviour:
     enabled: 1
   - prefab: {fileID: 4882704628942184758, guid: de9d555963034479bad005dae4df2c84, type: 3}
     enabled: 1
+  - prefab: {fileID: 8384852280922034335, guid: 1528e39f99e3345bfb15f065c21b5db1, type: 3}
+    enabled: 1
