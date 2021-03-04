@@ -1,13 +1,19 @@
 using Unity.Entities;
 using Unity.Animation;
 using Unity.DataFlowGraph;
+using Unity.Transforms;
 using Unity.NetCode;
 using UnityEngine;
+using NavJob.Components;
+using System;
 
 
+// 스킬을 제외한 기본 에니메이션을 업데이트한다.
+// 그래프의 생성 및 삭제를 관리함.
 [UpdateBefore(typeof(DefaultAnimationSystemGroup))]
-public class MyCharacterAnim : SystemBase
+public class DefaultAnimSystem : SystemBase
 {
+    int a = 0;
     ProcessDefaultAnimationGraph graph_system;
     EndSimulationEntityCommandBufferSystem ECB_system;
     EntityQuery animation_data_query;
@@ -22,7 +28,7 @@ public class MyCharacterAnim : SystemBase
         ECB_system = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
         animation_data_query = GetEntityQuery(new EntityQueryDesc()
         {
-            None = new ComponentType[] { typeof(AnimationClipsComponent)},
+            None = new ComponentType[] { typeof(DefaultAnimClipsComponent) },
             All = new ComponentType[] {typeof(PlayClipStateComponent)}
         });
 
@@ -46,32 +52,75 @@ public class MyCharacterAnim : SystemBase
         CompleteDependency();
         EntityCommandBuffer ecb = ECB_system.CreateCommandBuffer();
 
+        // DefaultAnimClipsComponent 를 소유한 엔티티가 있다면 PlayClipsStateComponent 를 생성해준다.
         Entities.
             WithName("CreateGraph").
             WithNone<PlayClipStateComponent>().
             WithoutBurst().
             WithStructuralChanges().
-            ForEach((Entity ent_, ref Rig rig, ref AnimationClipsComponent clips_comp) =>
+            ForEach((Entity ent_, ref Rig rig, ref DefaultAnimClipsComponent clips_comp) =>
             {
                 UnityEngine.Debug.Log("Create Graph foreach");
                 var state = CreateGraph(ent_, graph_system, ref rig, ref clips_comp);
                 ecb.AddComponent(ent_, state);
             }).Run();
 
+            // 애니메이션 상태를 결정.
+            Entities.
+                WithoutBurst().
+                ForEach((Entity ent_, ref DefaultAnimClipsComponent clips_comp_,
+                         ref PlayClipStateComponent clip_state_, ref DefaultAnimStateComponent anim_state_) =>
+                {
 
-        Entities.
-            WithName("UpdateGraph").
-            WithChangeFilter<PlayClipStateComponent>().
-            WithoutBurst().
-            ForEach((Entity e, ref AnimationClipsComponent clips_comp, ref PlayClipStateComponent state) =>
-            {
-                UnityEngine.Debug.Log("Update Graph foreach");
-                graph_system.Set.SendMessage(state.ClipPlayerNode, ClipPlayerNode.SimulationPorts.Clip, clips_comp.clip);
-            }).Run();
+                    // 외부에서 상태를 변경하고 여기서 업데이트한다.
+                    // if (anim_state_.state == DefaultAnimState.hit) 
+                    // {
+                    //     맞앗을떄 애니메이션 변경.
+                    // }
+                    // else if ( anim_state_.state == DefaultAnimState.Skill) {
+                    //     return;
+                    // }
+
+                    // 이 조건은 추후 변경에의해 수정.
+                    // 현재는 상태가 아래 두개이기 때문에 상태가 있다면 업데이트를 종료한다.
+                    // Idle, Run 움직이거나 안움직이거나.
+     
+                    if (anim_state_.influenced_by_extenal != DefaultAnimState.none)
+                    {
+                        return;
+                    }
+
+                    NavAgent agent = EntityManager.GetComponentData<NavAgent>(ent_);
+                    // 공중이나 피격시 처리는 이후에 추가한다.
+                    if (agent.status == AgentStatus.Moving &&
+                        anim_state_.pre_state != DefaultAnimState.run)
+                    {
+                         // 다른 애니메이션은 루프를 신경서야함.
+                         graph_system.Set.SendMessage(clip_state_.ClipPlayerNode,
+                                                      ClipPlayerNode.SimulationPorts.Clip,
+                                                      clips_comp_.run);
+
+                        anim_state_.pre_state = DefaultAnimState.run;
+                        UnityEngine.Debug.Log("State Change");
+                        return;
+                    }
+                
+                    if (agent.status == AgentStatus.Idle &&
+                        anim_state_.pre_state != DefaultAnimState.idle)
+                    {
+                        graph_system.Set.SendMessage(clip_state_.ClipPlayerNode,
+                                                     ClipPlayerNode.SimulationPorts.Clip,
+                                                     clips_comp_.idle);
+
+                        anim_state_.pre_state = DefaultAnimState.idle;
+                    }
+                
+                }).Run();
+
 
         Entities.
             WithName("DestroyGraph").
-            WithNone<AnimationClipsComponent>().
+            WithNone<DefaultAnimClipsComponent>().
             WithoutBurst().
             WithStructuralChanges().
             ForEach((Entity e, ref PlayClipStateComponent state) =>
@@ -97,7 +146,7 @@ public class MyCharacterAnim : SystemBase
         Entity ent_,
         ProcessDefaultAnimationGraph graph_system_,
         ref Rig rig_,
-        ref AnimationClipsComponent play_clip_
+        ref DefaultAnimClipsComponent play_clip_
     )
     {
         GraphHandle graph = graph_system_.CreateGraph();
@@ -121,7 +170,7 @@ public class MyCharacterAnim : SystemBase
         set.SetData(data.ClipPlayerNode, ClipPlayerNode.KernelPorts.Speed, 1.0f);
         set.SendMessage(data.ClipPlayerNode, ClipPlayerNode.SimulationPorts.Configuration, new ClipConfiguration { Mask = ClipConfigurationMask.LoopTime });
         set.SendMessage(data.ClipPlayerNode, ClipPlayerNode.SimulationPorts.Rig, rig_);
-        set.SendMessage(data.ClipPlayerNode, ClipPlayerNode.SimulationPorts.Clip, play_clip_.clip);
+        set.SendMessage(data.ClipPlayerNode, ClipPlayerNode.SimulationPorts.Clip, play_clip_.idle);
 
         return data;
     }

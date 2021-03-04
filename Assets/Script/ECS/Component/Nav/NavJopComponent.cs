@@ -26,7 +26,9 @@ namespace NavJob.Components
         public float3 destination { get; set; }
         public float currentMoveSpeed { get; set; }
         public int queryVersion { get; set; }
-        public AgentStatus status { get; set; }
+
+        [GhostField]
+        public AgentStatus status;
         public float3 position;
         public float3 nextPosition { get; set; }
         public Quaternion rotation { get; set; }
