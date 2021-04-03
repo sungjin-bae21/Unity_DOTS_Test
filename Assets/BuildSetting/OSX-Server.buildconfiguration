@@ -33,7 +33,7 @@
         {
             "$type": "Unity.Build.Common.PlayerScriptingDefines, Unity.Build",
             "Defines": [
-                "UNITY_CLIENT"
+                "UNITY_SERVER"
             ]
         },
         {
@@ -45,7 +45,7 @@
         },
         {
             "$type": "Unity.Build.Common.OutputBuildDirectory, Unity.Build",
-            "OutputDirectory": "Build/Mac/Client"
+            "OutputDirectory": "Build/Mac/Server"
         }
     ]
 }

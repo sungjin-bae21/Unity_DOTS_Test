@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 8562904715363551620}
   - component: {fileID: 3227587723019859966}
   - component: {fileID: 1513270425067466045}
+  - component: {fileID: -1301373615429339196}
   m_Layer: 3
   m_Name: Arthus
   m_TagString: Untagged
@@ -405,6 +406,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   influenced_by_extenal: 0
   pre_state: 0
+--- !u!114 &-1301373615429339196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8384852280922034328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d30974bf68d61043b1572197db94cdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SimulationType: 1
+  m_Gravity:
+    x: -0
+    y: -9.81
+    z: -0
+  m_SolverIterationCount: 4
+  m_EnableSolverStabilizationHeuristic: 0
+  m_ThreadCountHint: 8
+  m_SynchronizeCollisionWorld: 0
 --- !u!1 &8384852280970801437
 GameObject:
   m_ObjectHideFlags: 0

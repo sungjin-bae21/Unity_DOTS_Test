@@ -2,6 +2,7 @@ using System;
 using Unity.Entities;
 using Unity.NetCode;
 using Unity.Networking.Transport;
+using UnityEngine;
 using Unity.Burst;
 
 
@@ -33,8 +34,8 @@ public class NetworkConnectSystem : ComponentSystem
                 NetworkEndPoint ep = NetworkEndPoint.LoopbackIpv4;
                 ep.Port = 7979;
                 network.Connect(ep);
+                
             }
-#if UNITY_EDITOR
             else if (world.GetExistingSystem<ServerSimulationSystemGroup>() != null)
             {
                 // Server world automatically listens for connections from any host
@@ -42,7 +43,6 @@ public class NetworkConnectSystem : ComponentSystem
                 ep.Port = 7979;
                 network.Listen(ep);
             }
-#endif
         }
     }
 }
