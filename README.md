@@ -6,9 +6,9 @@
 
 ### 아키텍쳐.
 
-ECS(Entitiy Component System) 는 기존의 Component-based 시스템과 다른 프로그래밍 아키텍쳐로
+ECS(Entitiy Component System) 는 기존의 Component-based 시스템과 다른 데이터 지향의 프로그래밍 아키텍쳐로
 
-* Entity(Object ID) : Object Id 를 표현.
+* Entity(Object ID) : ID.
 * Component(Data)   : 데이터.
 * System(Logic)     : 행동을 구현 하는 곳.
 
@@ -17,25 +17,40 @@ Component-based system 는 속성, 데이터, 캡슐화를 잘 활용하기 위�
 
 ### 동작 방식
 
-![텍스트](./스크린샷 2021-06-25 오후 8.09.05.png)
+![ecsHowToWork](./ecsHowToWork.png)
 
-프로그램이 실행되면 Entity, Component, System 에 대한 **Manager** 와 Codinator 생성이된다.!
+위 그림과 같은 방식으로 로직이 업데이트 될때 Entity ID 를 통해 Entity 에 엮여 있는 Component 를 찻고 로직을 업데이트한다.
+만약 Entity 의 컴포넌트가 추가 또는 삭제가 된다면 System 에도 이를 알려 Entity 배열을 업데이트 되도록 한다.
 
-
-1. EntityManager 는 Entity 들을 미리 생성해 배열에 저장, 관리 하며 마치 오브젝트 풀과 유사한 동작을 가지는 매니저.
-2. ComponentManager 는 사용자가 정의한 각 Component 배열을 관리하며 사용자가 컴포넌트를 추가 삭제함에 따라 요소가 늘어나고 줄어든다.
-3. SystemManager 는 업데이트 되어야할 entity 의 id 배열를 들고 있으며 
-4. Codinator 는 Entity 에 Component 를 추가하기 위한 전역 Helper 로 추
-
-기존과 다른 장점은 무엇일까.
-장점은 logic 의 복잡도가 많이 내려간다.
+자세한 구현은 아래를 참고.
+[A SIMPLE ENTITY COMPONENT SYSTEM (ECS) [C++]](https://austinmorlan.com/posts/entity_component_system/).
 
 
+### 장점
 
-간단하게 적어보면 모든 엔티티들은 하나의 배열(최대 사이즈가 정의된)에 보관 되어있으며 쿼리를 통해 원하는 엔티티들을 가지고 올 수 있다.
+1. 상태와 로직이 분리 되어있어 복잡도를 낮출 수 있다.  
+ex)  타겟의 체력을 깍는 기존 코드.  
+```{.c++}
+void Attack(Target& target_, int damage_) {
+  target_.hp -= damage;
+}
+```
+    
+ecs 아키텍쳐의 코드 target 대한 정보가 필요없다.
 
-*EntityArray => [Query] => Entitys*
+```{.c++}
+AttackSystem {
+  Query.foreach (Entity id_, HpComponent hp_component_, int damage_) {
+    hp_component_.hp -= damage_;
+  }
+}
+```
 
-쿼리를 통해 얻은 엔티티들을 어떤 동작을 할지 구현하고
-만약 다른 엔티티에 영향을 주는 동작이 있다면 "UpdateCommand" 라는 명칭을 가지는 직렬화 큐를 이용해 동작하게 한다.
+2. 데이터 지향 프로그래밍 아키텍쳐로 인해 멀티쓰레드 효율이 좋아진다.
+    
+### 단점
+
+1. Component-based System 에 비해 복잡도가 낮지만 또 다른 엔티티 의존성으로 인한 복잡도가 증가하는 것을 막을 수 없다.
+2. 기존에 사용하던 게임 엔진의 기능들 애니메이션, 스킨 매쉬등등 이 ecs 를 지원하지 않기 때문에 제작이 매우 힘듬.
+3. pure ecs 가 아닌 hybrid ecs 를 사용 했을때 game object 와 entity component 간 데이터를 주고받기가 힘들다.
 
